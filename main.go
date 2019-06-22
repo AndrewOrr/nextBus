@@ -8,7 +8,7 @@ import (
 func main() {
 	//	given route stop and direction
 	// assume no validation is necessary
-	routes := nextBus.GetRoutes()
+	routes, _ := nextBus.GetRoutes()
 	fmt.Println(len(routes))
 
 }
