@@ -2,8 +2,6 @@ package nextBus
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"net/http"
 	"strconv"
 	"strings"
 )
@@ -26,21 +24,12 @@ func GetRoute(routeInput string) (int, error) {
 
 //GetRoutes calles the metrotransit api and returns a map of descripts -> route number
 func GetRoutes() (map[string]int, error) {
-	url := buildRoutesUrl()
-	req, err := http.NewRequest("GET", url, nil)
+	js, err := GetEndpointData(buildRoutesUrl())
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-	client := &http.Client{}
-	response, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	data, _ := ioutil.ReadAll(response.Body)
 	var trips []NexTripRoute
-	err = json.Unmarshal(data, &trips)
+	err = json.Unmarshal(js, &trips)
 	if err != nil {
 		return nil, err
 	}

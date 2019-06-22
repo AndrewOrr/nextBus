@@ -1,5 +1,5 @@
 package nextBus
 
-func GetStops(stop, route, direction string) []string {
+func GetStops(stop, direction string) []string {
 	return nil
 }
