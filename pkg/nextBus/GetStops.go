@@ -5,8 +5,8 @@ import (
 	"errors"
 )
 
-func GetStopIdentifier(route, direction, stop string) (string, error) {
-	mapping, err := GetStops(route, direction)
+func GetStop(route, direction, stop string) (string, error) {
+	mapping, err := GetAllStops(route, direction)
 	if err != nil {
 		return "", err
 	}
@@ -18,7 +18,7 @@ func GetStopIdentifier(route, direction, stop string) (string, error) {
 	return "", errors.New("unknown stop value")
 }
 
-func GetStops(route, direction string) (map[string]string, error) {
+func GetAllStops(route, direction string) (map[string]string, error) {
 	js, err := GetEndpointData(buildStopUrl(route, direction))
 	if err != nil {
 		return nil, err

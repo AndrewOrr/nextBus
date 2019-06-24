@@ -32,7 +32,7 @@ func GetNextTrip(route, direction, stop string) (string, error) {
 	currentTime := time.Now()
 	eod := time.Date(currentTime.Year(), currentTime.Month(), currentTime.Day(), 23, 59, 59, 999999999, currentTime.Location())
 	if nextTime.After(eod) {
-		return "", nil
+		return "Better luck tomorrow", nil
 	}
 	return ntd[0].DepartureText, nil
 }

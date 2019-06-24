@@ -31,7 +31,6 @@ func buildTimepointDepartureUrl(route string, direction string, stop string) str
 	return baseUrl + route + "/" + direction + "/" + stop
 }
 
-
 //GetEndpointData handles calls to the metrotransit api
 func GetEndpointData(url string) (json.RawMessage, error) {
 	req, err := http.NewRequest("GET", url, nil)

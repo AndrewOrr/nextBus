@@ -7,7 +7,7 @@ import (
 
 func TestGetDirections(t *testing.T) {
 	type args struct {
-		route int
+		route string
 	}
 	tests := []struct {
 		name    string
@@ -15,7 +15,7 @@ func TestGetDirections(t *testing.T) {
 		want    map[string]string
 		wantErr bool
 	}{
-		{"Basic test", args{6}, map[string]string{"NORTHBOUND": "4", "SOUTHBOUND": "1"}, false},
+		{"Basic test", args{"6"}, map[string]string{"NORTHBOUND": "4", "SOUTHBOUND": "1"}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

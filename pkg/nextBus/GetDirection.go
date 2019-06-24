@@ -3,15 +3,22 @@ package nextBus
 import (
 	"encoding/json"
 	"errors"
-	"strconv"
+	"strings"
 )
 
-func GetDirections(route int) (map[string]string, error) {
-	if route < 0 {
-		return nil, errors.New("invalid route number")
+func GetDirection(route, direction string) (string, error) {
+	possibleDirections, err := GetDirections(route)
+	if err != nil {
+		return "", err
 	}
-	routeString := strconv.Itoa(route)
-	js, err := GetEndpointData(buildDirectionsUrl(routeString))
+	if val, ok := possibleDirections[strings.ToUpper(direction)]; ok {
+		return val, nil
+	}
+	return "", errors.New("unknown direction")
+}
+
+func GetDirections(route string) (map[string]string, error) {
+	js, err := GetEndpointData(buildDirectionsUrl(route))
 	if err != nil {
 		return nil, err
 	}
