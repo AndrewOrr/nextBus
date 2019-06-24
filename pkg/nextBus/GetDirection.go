@@ -21,13 +21,13 @@ func GetDirections(route int) (map[string]string, error) {
 		return nil, err
 	}
 	directions := make(map[string]string)
-	for _,v := range textPairs{
+	for _, v := range textPairs {
 		directions[v.Text] = v.Value
 	}
-	return directions,nil
+	return directions, nil
 }
 
 type TextPairValue struct {
-	Text string
+	Text  string
 	Value string
 }
