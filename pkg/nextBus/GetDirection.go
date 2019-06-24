@@ -26,8 +26,3 @@ func GetDirections(route int) (map[string]string, error) {
 	}
 	return directions, nil
 }
-
-type TextPairValue struct {
-	Text  string
-	Value string
-}

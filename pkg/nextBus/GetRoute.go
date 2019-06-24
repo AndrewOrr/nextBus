@@ -42,10 +42,3 @@ func GetRoutes() (map[string]int, error) {
 	}
 	return routes, nil
 }
-
-//NextTripRoute is the structure returned by metrotransit's GetRoutes
-type NexTripRoute struct {
-	Description string `json:"Description"`
-	ProviderId  string `json:"ProviderID"`
-	Route       string `json:"Route"`
-}

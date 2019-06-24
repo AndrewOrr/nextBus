@@ -36,18 +36,3 @@ func GetNextTrip(route, direction, stop string) (string, error) {
 	}
 	return ntd[0].DepartureText, nil
 }
-
-type NexTripDeparture struct {
-	Actual           bool
-	BlockNumber      int
-	DepartureText    string
-	DepartureTime    string
-	Description      string
-	Gate             string
-	Route            string
-	RouteDirection   string
-	Terminal         string
-	VehicleHeading   int
-	VehicleLatitude  json.Number
-	VehicleLongitude json.Number
-}
