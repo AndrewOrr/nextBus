@@ -2,42 +2,40 @@ package nextBus
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	"errors"
+	"strings"
 )
 
-func GetRoutes() []string {
-	url := buildRoutesUrl()
-	req, err := http.NewRequest("GET", url, nil)
+//GetRoute take in a string and compares it against the list of routes. If a match is found it returns the route #
+//if it fails to find it returns -1
+func GetRoute(routeInput string) (string, error) {
+	routes, err := GetRoutes()
 	if err != nil {
-		fmt.Println("whoops")
-		return nil
+		return "", err
 	}
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-	client := &http.Client{}
-	response, err := client.Do(req)
-	if err != nil {
-		fmt.Println("hi")
-		return nil
+	//ToDo: this is pretty costly
+	for i, v := range routes {
+		if strings.Contains(i, routeInput) {
+			return v, nil
+		}
 	}
-	data, _ := ioutil.ReadAll(response.Body)
-	var trips []NexTripRoute
-	err = json.Unmarshal(data, &trips)
-	if err != nil {
-		fmt.Println("whoops")
-		return nil
-	}
-	routes := make([]string, len(trips))
-	for i, v := range trips {
-		routes[i] = v.Description
-	}
-	return routes
+	return "", errors.New("Unrecognizable route")
 }
 
-type NexTripRoute struct {
-	Description string `json:"Description"`
-	ProviderId  string `json:"ProviderID"`
-	Route       string `json:"Route"`
+//GetRoutes calles the metrotransit api and returns a map of descripts -> route number
+func GetRoutes() (map[string]string, error) {
+	js, err := GetEndpointData(buildRoutesUrl())
+	if err != nil {
+		return nil, err
+	}
+	var trips []NexTripRoute
+	err = json.Unmarshal(js, &trips)
+	if err != nil {
+		return nil, err
+	}
+	routes := make(map[string]string)
+	for _, v := range trips {
+		routes[v.Description] = v.Route
+	}
+	return routes, nil
 }
