@@ -11,8 +11,10 @@ func GetDirection(route, direction string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if val, ok := possibleDirections[strings.ToUpper(direction)]; ok {
-		return val, nil
+	for i, v := range possibleDirections {
+		if strings.Contains(i, strings.ToUpper(direction)) {
+			return v, nil
+		}
 	}
 	return "", errors.New("unknown direction")
 }
