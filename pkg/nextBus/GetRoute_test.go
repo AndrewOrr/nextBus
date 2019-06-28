@@ -16,8 +16,8 @@ func TestGetRoute(t *testing.T) {
 		wantErr bool
 	}{
 		//{"Basic call should return expected result", args{"nnepin - Xerxes - France - Southdale"}, "6", false},
-		{"Basic call should return expected result", args{"Express - Target - Hwy 252 and 73rd Av P&R - Mpls"}, "6", false},
-		{"A string that doen't match should return an negative number", args{"qwert"}, "", false},
+		{"Basic call should return expected result", args{"Express - Target - Hwy 252 and 73rd Av P&R - Mpls"}, "765", false},
+		{"A string that doen't match should return an negative number", args{"qwert"}, "", true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

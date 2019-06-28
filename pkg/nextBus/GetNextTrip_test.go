@@ -3,7 +3,6 @@ package nextBus
 import (
 	"reflect"
 	"testing"
-	"time"
 )
 
 func TestGetNextTrip(t *testing.T) {
@@ -15,10 +14,10 @@ func TestGetNextTrip(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    time.Time
+		want    string
 		wantErr bool
 	}{
-		{"A known example should produce reasonable output", args{"6", "1", "1S1A"}, time.Now(), false},
+		{"A known example should produce reasonable output", args{"6", "1", "1S1A"}, "14 Min", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

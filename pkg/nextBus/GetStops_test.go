@@ -1,7 +1,6 @@
 package nextBus
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -41,12 +40,12 @@ func TestGetStops(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    map[string]string
+		want    int
 		wantErr bool
 	}{
 		// TODO: this isn't a consistent test
-		{"given a known route, should return expected results", args{"6", "1"}, nil, true},
-		{"random input should return an error", args{"aaa", "aaa"}, nil, true},
+		{"given a known route, should return expected results", args{"6", "1"}, 21, false},
+		{"random input should return an error", args{"aaa", "aaa"}, 0, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -55,8 +54,8 @@ func TestGetStops(t *testing.T) {
 				t.Errorf("GetAllStops() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetAllStops() = %v, want %v", got, tt.want)
+			if len(got) != tt.want {
+				t.Errorf("Expecting %d stops and got %d", tt.want, len(got))
 			}
 		})
 	}

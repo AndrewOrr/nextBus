@@ -18,7 +18,8 @@ func GetNextTrip(route, direction, stop string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	r := regexp.MustCompile(`(?:\\/Date\\()(?P<date>[0-9]+)-(?P<tz>[0-9]+)(?:\\)/)`)
+	rString := `(?:\/Date\()(?P<date>[0-9]+)-(?P<tz>[0-9]+)(?:\)/)`
+	r := regexp.MustCompile(rString)
 	//t := r.FindString(ntd[0].DepartureTime)
 	matchArray := r.FindStringSubmatch(ntd[0].DepartureTime)
 	if len(matchArray) < 3 {
@@ -26,7 +27,7 @@ func GetNextTrip(route, direction, stop string) (string, error) {
 	}
 	ts, err := strconv.ParseInt(matchArray[1], 10, 64)
 	if err != nil {
-		return "", errors.New("badly formated time")
+		return "", err
 	}
 	nextTime := time.Unix(int64(ts/1000), 0)
 	currentTime := time.Now()
